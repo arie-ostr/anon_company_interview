@@ -3,3 +3,5 @@ test.log
 sandbox.py
 .vscode/
 __pycache__/
+logs/*
+test_drafts.py
