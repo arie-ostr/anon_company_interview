@@ -2,9 +2,12 @@ import pytest
 
 from collections import Counter
 
+
 from infra.search_company_request import SearchCompanyRequest
-from data.error_responses import NOT_ALLOWED_RESPONSE_BODY as response405
 from infra.data_validator import is_valid_domain
+
+from data.error_responses import NOT_ALLOWED_RESPONSE_BODY as response405
+from data.company_names import company_names_sample
 
 
 @pytest.fixture(scope="module")
@@ -15,8 +18,9 @@ def all_companies_request():
     return contact_request
 
 
+
 @pytest.mark.search_company
-def test_no_duplicate_compant_names(logger, all_companies_request):
+def test_no_duplicate_compant_names(logger, company_names_sample):
     """
     when user makes empty search
         and it yields all companies
@@ -84,3 +88,24 @@ def test_revenue_ranges(logger, all_companies_request):
     )
     for r in ranges:
         assert r[0] <= r[1], f"min: {r[0]} is greater than max: {r[1]}"
+
+
+@pytest.mark.search_company
+@pytest.mark.parametrize("company_name", company_names_sample)
+def test_company_names_stability(logger, company_name):
+    """
+    given a user who looks for a certain company
+    when user searches for the company
+    he finds the correct results
+    """
+    contact_request = SearchCompanyRequest(name=company_name)
+    contact_request.execute_request()
+    json = contact_request.get_response_json()
+    assert len(json) >= 1, f"expected at least one 1 result, got {len(json)}"
+
+    actual_name = json[0]["name"]
+    # we assume the first result is the actual company we look for
+    # longer company names will appear below
+    # therwise the test will fail and we will see the change
+    assert actual_name.lower() == company_name.lower(), \
+    f"expected {company_name}, got {actual_name}"

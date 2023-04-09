@@ -49,6 +49,7 @@ def get_all_contacts_requests(request, all_companies):
             request_list.append(contact_request)
             
     return request_list #returns 100*2 companies per contact param'
+        
 
 @pytest.fixture(scope="session")
 def get_all_contacts_requests_unparametrized(all_companies):

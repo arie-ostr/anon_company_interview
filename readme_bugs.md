@@ -125,3 +125,19 @@ result changes
 **impact**
 possible duplicate data.
 
+## company names mutate in search_company
+**steps to reproduce**
+1. run the following test
+    ``test_company_names_stability```
+2. alternatively you can search for a company such as:
+    ```Api engineering```
+3. might have to run several times
+
+**expected result**
+company name stable 
+
+**actual result**
+```Api engineering``` yields ```Vpi engineering```
+
+**impact**
+corrupt data sources or pipeline.
