@@ -78,6 +78,10 @@ I wanted to implement a log for each test file but:
 - some tests had truncated param lists:
     - this is because running them with 2500+ params even async is heavy
     - pytest is limited in its ability to produce fixtures with params
+- I'm not sure I used fixtures correctly: 
+    - my goal was caching the results of large batches of requests for reuse.
+    - I have used pytests cache for it, however it might introduce bugs in some cases
+    - for example if resources that the request represents change as a result of the test.
 
 ## tools used:
 I have built this project with vscode and python 3.11 

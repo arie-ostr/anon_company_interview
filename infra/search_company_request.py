@@ -84,3 +84,10 @@ class SearchCompanyRequest(LushaRequest):
             assert "domain" in company, "domain not in company"
             assert "revenue_range" in company, "revenue_range not in company"
             assert "name" in company, "company_name not in company"
+
+
+    def get_company_names(self,name):
+        """
+        gets company names, as aa list
+        """
+        return self.get_items_in_res9("name")
