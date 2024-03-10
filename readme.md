@@ -1,4 +1,4 @@
-# Lusha home assignment
+#  home assignment
 testing search_contact, search_company
 we have an API that is unfortunately buggy:
 I must find the bugs ( with emphasis on data integrity ) make tests for them
